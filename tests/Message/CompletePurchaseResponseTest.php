@@ -9,7 +9,10 @@ use Omnipay\Razorpay\Message\CompletePurchaseResponse;
 
 class CompletePurchaseResponseTest extends TestCase
 {
-    public function setUp()
+    private array $data;
+    private CompletePurchaseResponse $response;
+
+    protected function setUp(): void
     {
         $request = new CompletePurchaseRequest($this->getHttpClient(), $this->getHttpRequest());
 
@@ -29,7 +32,7 @@ class CompletePurchaseResponseTest extends TestCase
         $this->response = new CompletePurchaseResponse($request, $this->data);
     }
 
-    public function testIsSuccessful()
+    public function testIsSuccessful(): void
     {
         $_POST = $this->data;
         $_POST['x_result'] = 1;

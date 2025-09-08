@@ -10,29 +10,27 @@ use Omnipay\Common\Message\RedirectResponseInterface;
  */
 class PurchaseResponse extends AbstractResponse implements RedirectResponseInterface
 {
-    public function getRedirectUrl()
+    public function getRedirectUrl(): string
     {
         return 'https://checkout.razorpay.com/integration/shopify';
     }
 
-    public function getRedirectMethod()
+    public function getRedirectMethod(): string
     {
         return 'POST';
     }
 
-    public function getRedirectData()
+    public function getRedirectData(): array
     {
         return $this->data;
     }
 
-    public function redirect(){}
-
-    public function isRedirect()
+    public function isRedirect(): bool
     {
         return true;
     }
 
-    public function isSuccessful()
+    public function isSuccessful(): bool
     {
         return false;
     }

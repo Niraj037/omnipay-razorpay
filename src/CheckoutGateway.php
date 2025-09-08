@@ -10,35 +10,35 @@ use Omnipay\Common\AbstractGateway;
 class CheckoutGateway extends AbstractGateway
 {
     // Gateway name
-    public function getName()
+    public function getName(): string
     {
         return 'Razorpay';
     }
 
-    public function getDefaultParameters()
+    public function getDefaultParameters(): array
     {
-        return array(
+        return [
             'key_id' => '',
             'key_secret' => ''
-        );
+        ];
     }
 
-    public function getKeyID()
+    public function getKeyID(): ?string
     {
         return $this->getParameter('key_id');
     }
 
-    public function setKeyID($value)
+    public function setKeyID(string $value): self
     {
         return $this->setParameter('key_id', $value);
     }
 
-    public function getKeySecret()
+    public function getKeySecret(): ?string
     {
         return $this->getParameter('key_secret');
     }
 
-    public function setKeySecret($value)
+    public function setKeySecret(string $value): self
     {
         return $this->setParameter('key_secret', $value);
     }
@@ -46,17 +46,17 @@ class CheckoutGateway extends AbstractGateway
     /**
      * Creating the Purchase Request
      */
-    public function purchase(array $parameters = array())
+    public function purchase(array $options = []): \Omnipay\Common\Message\RequestInterface
     {
-        return $this->createRequest('\Omnipay\Razorpay\Message\PurchaseRequest', $parameters);
+        return $this->createRequest('\Omnipay\Razorpay\Message\PurchaseRequest', $options);
     }
 
     /**
      * Verifying the Purchase Request
      */
-    public function completePurchase(array $parameters = array())
+    public function completePurchase(array $options = []): \Omnipay\Common\Message\RequestInterface
     {
-        $parameters['key_secret'] = $this->getKeySecret();
-        return $this->createRequest('\Omnipay\Razorpay\Message\CompletePurchaseRequest', $parameters);
+        $options['key_secret'] = $this->getKeySecret();
+        return $this->createRequest('\Omnipay\Razorpay\Message\CompletePurchaseRequest', $options);
     }
 }

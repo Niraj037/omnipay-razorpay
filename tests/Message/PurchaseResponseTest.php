@@ -8,7 +8,12 @@ use Omnipay\Razorpay\Message\PurchaseResponse;
 
 class PurchaseResponseTest extends TestCase
 {
-    public function setUp()
+    private PurchaseRequest $request;
+    private array $parameters;
+    private array $data;
+    private PurchaseResponse $response;
+
+    protected function setUp(): void
     {
         $this->request = new PurchaseRequest($this->getHttpClient(), $this->getHttpRequest());
 
@@ -27,7 +32,7 @@ class PurchaseResponseTest extends TestCase
         $this->response = new PurchaseResponse($this->request, $this->data);
     }
 
-    public function testGetRedirectFlow()
+    public function testGetRedirectFlow(): void
     {
         $url = $this->response->getRedirectUrl();
         $this->assertSame('https://checkout.razorpay.com/integration/shopify', $url);
@@ -39,7 +44,7 @@ class PurchaseResponseTest extends TestCase
         $this->assertSame($method, 'POST');
     }
 
-    public function testGetRedirectData()
+    public function testGetRedirectData(): void
     {
         $data = $this->response->getRedirectData();
 

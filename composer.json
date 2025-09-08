@@ -1,12 +1,14 @@
 {
 	"name": "razorpay/omnipay-razorpay",
-	"description": "Razorpay Omnipay 2.0 plugin for accepting payments",
+	"description": "Razorpay Omnipay 3.0 plugin for accepting payments",
     "require": {
-        "omnipay/common": "~2.0",
-        "razorpay/razorpay": "1.*"
+        "php": "^7.1|^8.0",
+        "omnipay/common": "^3.0",
+        "razorpay/razorpay": "^2.0"
     },
     "require-dev": {
-        "omnipay/tests": "~2.0"
+        "omnipay/tests": "^3.0",
+        "phpunit/phpunit": "^6.5|^7.0|^8.0|^9.0"
     },
     "keywords": [
       "razorpay", "payments", "india",

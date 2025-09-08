@@ -7,7 +7,7 @@ use Omnipay\Razorpay\CheckoutGateway;
 
 class GatewayTest extends GatewayTestCase
 {
-    public function setUp()
+    protected function setUp(): void
     {
         parent::setUp();
 
@@ -16,7 +16,7 @@ class GatewayTest extends GatewayTestCase
         $this->gateway->setKeySecret('random_key_secret');
     }
 
-    public function testPurchase()
+    public function testPurchase(): void
     {
         $request = $this->gateway->purchase(['amount' => '10.00']);
 
@@ -24,14 +24,14 @@ class GatewayTest extends GatewayTestCase
         $this->assertSame('10.00', $request->getAmount());
     }
 
-    public function testCompletePurchase()
+    public function testCompletePurchase(): void
     {
         $request = $this->gateway->completePurchase();
 
         $this->assertInstanceOf('\Omnipay\Razorpay\Message\CompletePurchaseRequest', $request);
     }
 
-    public function testGetDefaultParameters()
+    public function testGetDefaultParameters(): void
     {
         $parameters = $this->gateway->getDefaultParameters();
 
@@ -39,14 +39,14 @@ class GatewayTest extends GatewayTestCase
         $this->assertSame($parameters['key_secret'], '');
     }
 
-    public function testGetKeyId()
+    public function testGetKeyId(): void
     {
         $keyId = $this->gateway->getKeyID();
 
         $this->assertSame($keyId, 'random_key_id');
     }
 
-    public function testGetKeySecret()
+    public function testGetKeySecret(): void
     {
         $keySecret = $this->gateway->getKeySecret();
 

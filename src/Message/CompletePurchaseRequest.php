@@ -7,7 +7,7 @@ class CompletePurchaseRequest extends PurchaseRequest
     /**
      * Sending data to Response class
      */
-    protected function createResponse($data)
+    protected function createResponse($data): CompletePurchaseResponse
     {
         return $this->response = new CompletePurchaseResponse($this, $data);
     }

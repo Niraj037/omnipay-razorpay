@@ -8,7 +8,10 @@ use Omnipay\Razorpay\Message\PurchaseRequest;
 
 class PurchaseRequestTest extends TestCase
 {
-    public function setUp()
+    private PurchaseRequest $request;
+    private array $parameters;
+
+    protected function setUp(): void
     {
         $this->request = new PurchaseRequest($this->getHttpClient(), $this->getHttpRequest());
 
@@ -23,7 +26,7 @@ class PurchaseRequestTest extends TestCase
         $this->request->initialize($this->parameters);
     }
 
-    public function testGetData()
+    public function testGetData(): void
     {
         $data = $this->request->getData();
 
@@ -46,7 +49,7 @@ class PurchaseRequestTest extends TestCase
     }
 
     // If card details are empty, we return default parameters
-    public function testDefaultGetData()
+    public function testDefaultGetData(): void
     {
         $parameters = [
             'amount'     => '10.00',
@@ -62,7 +65,7 @@ class PurchaseRequestTest extends TestCase
         $this->assertSame($data, $data);
     }
 
-    public function testSendData()
+    public function testSendData(): void
     {
         $response = $this->request->send();
 

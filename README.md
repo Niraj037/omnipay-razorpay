@@ -7,13 +7,13 @@
 **Razorpay driver for the Omnipay PHP payment processing library**
 
 [Omnipay](https://github.com/thephpleague/omnipay) is a framework agnostic, multi-gateway payment
-processing library for PHP. This package implements Razorpay support for Omnipay.
+processing library for PHP. This package implements Razorpay support for Omnipay v3.
 
 To know more about Razorpay payment flow and steps involved, please read up here:
 <https://docs.razorpay.com/docs>
 
 ## Requirements
-`PHP >= 5.6.0`
+`PHP >= 7.1.0` (for PHP 5.6 support, use v2.x of this package)
 
 ## Installation
 
@@ -23,7 +23,7 @@ to your `composer.json` file:
 ```json
 {
     "require": {
-        "razorpay/omnipay-razorpay": "~2.0"
+        "razorpay/omnipay-razorpay": "^3.0"
     }
 }
 ```
@@ -41,6 +41,53 @@ The following gateways are provided by this package:
 For general usage instructions, please see the main [Omnipay](https://github.com/thephpleague/omnipay)
 repository.
 
+### Example Usage
+
+```php
+use Omnipay\Omnipay;
+
+// Create a gateway for the Razorpay Checkout Gateway
+$gateway = Omnipay::create('Razorpay_Checkout');
+
+// Initialise the gateway
+$gateway->initialize([
+    'key_id' => 'Your Razorpay Key ID',
+    'key_secret' => 'Your Razorpay Key Secret',
+]);
+
+// Create a purchase request
+$purchaseRequest = $gateway->purchase([
+    'amount' => '10.00',
+    'currency' => 'INR',
+    'card' => $card,
+]);
+
+$response = $purchaseRequest->send();
+
+if ($response->isRedirect()) {
+    // Redirect to offsite payment gateway
+    $response->redirect();
+} else {
+    // Payment failed
+    echo $response->getMessage();
+}
+```
+
+## Upgrade Notes (v2 to v3)
+
+This version upgrades the package to support Omnipay v3, which includes:
+
+- **PHP 7.1+ requirement**: Updated minimum PHP version for better type safety
+- **Type hints**: Added strict type hints throughout the codebase
+- **PSR-7 HTTP**: Better HTTP message handling (though this gateway doesn't make external HTTP calls)
+- **Testing improvements**: Upgraded to PHPUnit 6+ standards
+
+### Breaking Changes from v2
+
+- Minimum PHP version is now 7.1
+- All method signatures now include type hints
+- `setUp()` methods in tests changed to `setUp(): void`
+- Removed deprecated `redirect()` method override (now handled by Omnipay core)
 
 If you are having general issues with Omnipay, we suggest posting on
 [Stack Overflow](http://stackoverflow.com/). Be sure to add the
